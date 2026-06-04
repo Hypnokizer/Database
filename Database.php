@@ -1,5 +1,15 @@
 <?php 
 
+/**
+ * Class to execute queries using PDO and SQLite3
+ * 
+ * This class exists to quickly and easily execute perpared queries using the PDO wrapper for an SQLite3 database.
+ * 
+ * @author Nathan Kizer <hypnokizer@gmail.com>
+ * @version 7.0
+ * @revision 2026-05-18 Added ability to chain methods
+ */
+
 namespace Hypnokizer;
 
 use Exception;
