@@ -65,9 +65,9 @@ Depending upon the type of query executed, there are several values stored in cl
 
 |Property   |Description|
 |-----------|-----------|
-|`nrows`    |The number of rows returned by a query|
-|`naffected`|The number of rows affected by a query|
 |`lastID`   |The last ID assigned to an insert query|
+|`naffected`|The number of rows affected by a query|
+|`nrows`    |The number of rows returned by a query|
 |`status`   |Boolean value showing if the query was successful or not|
 
 
