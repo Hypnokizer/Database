@@ -1,22 +1,57 @@
 <?php 
 
-namespace App\Controllers;
+namespace Hypnokizer;
 
 use Exception;
 use PDOException;
 use PDO;
 
-
 class Database {
 
-    protected $lastID;
-    protected $naffected;
-    protected $nrows;
+    /**
+     * Last ID assigned to an insert query.
+     * @access public
+     * @var int
+     */
+    public $lastID;
+
+    /**
+     * Number of rows affected by the query.
+     * @access public
+     * @var int
+     */
+    public $naffected;
+
+    /**
+     * Number of rows returned by the query.
+     * @access public
+     * @var int
+     */
+    public $nrows;
+
+    /**
+     * PDO object for database connection.
+     * @access protected
+     * @var static
+     */
     protected $pdo;
-    protected $status;
+
+    /**
+     * Status of the query execution.
+     * @access public
+     * @var bool
+     */
+    public $status;
 
 
-    public function __CONSTRUCT($attr = array()) {
+    /**
+     * Creates a new instance of the database class.
+     * 
+     * Sets the default parameters. If the optional parameter is omitted, the default values are defined variables `DBPATH` and `DB`. 
+     * 
+     * @param array $attr Array containing database attributes. The default values are defined variables `DBPATH` and `DB`.
+     */
+    public function __CONSTRUCT(array $attr = array()) {
         $this->lastID = 0;
         $this->naffected = 0;
         $this->nrows = 0;
@@ -49,15 +84,13 @@ class Database {
     }
 
 
-
-
-
-
     /**
-     * create CSV export from associative array results of a query
-     * use a file extension in the name
+     * Create CSV export from associative array results of a query. Filename should include the file extension. The {@link run()} method should be called first to execute the query.
+     * 
+     * @param string $filename Filename of CSV file including the file extension.
+     * @see run()
      */
-    public function createCSV($filename) {
+    public function createCSV(string $filename) {
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=' . $filename);
 
@@ -75,13 +108,14 @@ class Database {
     }
 
 
-
-
-
-
-
-
-    public function run($query, $params = NULL) {
+    /**
+     * Executes a query and optional parameters for prepared statements.
+     * 
+     * @param string $query Query string to execute. May use prepared statements.
+     * @param array $params Array containing parameter values referenced in query statement.
+     * @see createCSV()
+     */
+    public function run(string $query, array $params = NULL) {
         try {
             $stmt = $this->pdo->prepare($query);
             $stmt->execute($params);
@@ -98,10 +132,11 @@ class Database {
     }
 
 
-
-
-
-
+    /**
+     * Display the entire object for debugging purposes.
+     * 
+     * @return string
+     */
     public function showObject() {
         echo '<pre>';
         print_r($this);
@@ -109,9 +144,11 @@ class Database {
     }
 
 
-
-
-
+    /**
+     * Display all database query results.
+     * 
+     * @return string
+     */
     public function showResults() {
         echo '<pre>';
         echo $this->nrows . ' results:';
@@ -120,8 +157,6 @@ class Database {
     }
 
 
-
 } // end class 
-
 
 ?>

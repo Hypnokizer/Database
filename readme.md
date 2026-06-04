@@ -1,15 +1,11 @@
-# SQLite3 class
+# Database class
 This class exists to quickly and easily execute perpared queries using the PDO wrapper for an SQLite3 database.
-
-## Before Use
-
-Create the database file. It should have an extension of `*.db`. The directory and the file itself should be fully writeable. 
-
-
 
 
 ## Basic Use
-Instantiate the object. The only parameter is an array containing database credentials. The default values are variables defined in an include file, but you can overwrite them for each instance. A try/catch block is used to set up the connection and will throw an error if the database cannot connect.
+Instantiate the object. If the database file does not exist, it will be created. It should have an extension of `*.db`. The directory and the file itself should be fully writeable.
+
+The only parameter is an array containing database credentials. The default values are variables defined in an include file, but you can overwrite them for each instance. A try/catch block is used to set up the connection and will throw an error if the database cannot connect.
 ```
 define('DBPATH', '../app/database/');
 define('DB', 'chinook.db');
@@ -23,16 +19,13 @@ $attr = array(
 $db = new db($attr);
 ```
 
-The `run()` method is the main method used. It determines the type of query to execute based on the first word of the query and stores values within class properties which can be accessesd by the user.
+The `run()` method is the main method used. It executes the query and stores the values within class properties which can be accessed by the user.
 
 
 
+### Simple Query
 
-
-
-#### Simple Query
-
-There are (2) parameters. The first, and only required, parameter is the query. Simple queries can be executed like this.
+There are (2) parameters. The first, and only required, parameter is the query. Simple queries can be executed like this:
 
 ```
 $query = 'SELECT * FROM thetable ORDER BY id';
@@ -42,9 +35,9 @@ $db->run($query);
 
 
 
-#### Prepared Statement
+### Prepared Statement
 
-To include user input, prepared statements are required. The `data` parameter contains the data to bind to the `?` placeholders.
+To include user input, prepared statements are required. The `params` variable contains the data to bind to the `?` placeholders.
 
 ```
 $query = 'SELECT * FROM thetable WHERE id = ? OR name = ?';
@@ -68,16 +61,14 @@ foreach($db->results as $row) {
 ```
 
 
-Depending upon the type of query executed, there are several values stored in class properties.
+Depending upon the type of query executed, there are several values stored in class properties:
 
-* `$db->nrows` - number of rows returned
-* `$db->naffected` - number of rows affected
-* `$db->lastID` - last ID inserted
-
-
-
-
-
+|Property   |Description|
+|-----------|-----------|
+|`nrows`    |The number of rows returned by a query|
+|`naffected`|The number of rows affected by a query|
+|`lastID`   |The last ID assigned to an insert query|
+|`status`   |Boolean value showing if the query was successful or not|
 
 
 
@@ -93,10 +84,6 @@ $db->run($query, $data);
 
 $db->createCSV('myfilename.csv');
 ```
-
-
-
-
 
 
 ## Debugging
