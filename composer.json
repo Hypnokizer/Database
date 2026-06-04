@@ -1,0 +1,9 @@
+{
+    "name": "hypnokizer/database",
+    "description": "Class to execute queries using PDO and SQLite3",
+    "homepage": "https://github.com/Hypnokizer/Database",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.3.0"
+    }
+}
