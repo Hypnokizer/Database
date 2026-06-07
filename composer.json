@@ -1,8 +1,20 @@
 {
     "name": "hypnokizer/database",
     "description": "Class to execute queries using PDO and SQLite3",
-    "homepage": "https://github.com/Hypnokizer/Database",
+    "type": "library",
     "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hypnokizer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nathan Kizer",
+            "email": "hypnokizer@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=8.3.0"
     }
