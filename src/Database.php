@@ -125,7 +125,7 @@ class Database {
      * @param array $params Array containing parameter values referenced in query statement.
      * @see createCSV()
      */
-    public function run(string $query, array $params = NULL) {
+    public function run(string $query, array|null $params = NULL) {
         try {
             $stmt = $this->pdo->prepare($query);
             $stmt->execute($params);
